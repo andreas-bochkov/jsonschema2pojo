@@ -9,14 +9,14 @@
     </parent>
 
     <artifactId>jsonschema2pojo-core</artifactId>
-
+    <version>0.5.3-SNAPSHOT</version>
     <name>jsonschema2pojo-core</name>
 
     <dependencies>
         <dependency>
             <groupId>org.jsonschema2pojo</groupId>
             <artifactId>jsonschema2pojo-scalagen</artifactId>
-            <version>${project.version}</version>
+            <version>0.5.2-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>

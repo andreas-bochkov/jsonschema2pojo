@@ -63,10 +63,12 @@ public class RuleFactoryImplTest {
         assertThat(ruleFactory.getMinItemsMaxItemsRule(), notNullValue());
 
         assertThat(ruleFactory.getPatternRule(), notNullValue());
-        
+
         assertThat(ruleFactory.getMinLengthMaxLengthRule(), notNullValue());
-        
+
         assertThat(ruleFactory.getValidRule(), notNullValue());
+        
+        assertThat(ruleFactory.getNodeMap(), notNullValue());
 
     }
 

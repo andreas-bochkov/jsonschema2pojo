@@ -16,10 +16,13 @@
 
 package org.jsonschema2pojo.rules;
 
+import java.util.HashMap;
+
 import org.jsonschema2pojo.Annotator;
 import org.jsonschema2pojo.DefaultGenerationConfig;
 import org.jsonschema2pojo.GenerationConfig;
 import org.jsonschema2pojo.Jackson2Annotator;
+import org.jsonschema2pojo.JClassEntity;
 import org.jsonschema2pojo.SchemaStore;
 import org.jsonschema2pojo.util.NameHelper;
 import org.jsonschema2pojo.util.ParcelableHelper;
@@ -42,6 +45,7 @@ public class RuleFactory {
     private GenerationConfig generationConfig;
     private Annotator annotator;
     private SchemaStore schemaStore;
+    private HashMap<String, JClassEntity> nodeMap;
 
     /**
      * Create a new rule factory with the given generation config options.
@@ -61,6 +65,7 @@ public class RuleFactory {
         this.annotator = annotator;
         this.schemaStore = schemaStore;
         this.nameHelper = new NameHelper(generationConfig);
+        this.nodeMap = new HashMap<String, JClassEntity>();
     }
 
     /**
@@ -128,7 +133,9 @@ public class RuleFactory {
      *
      * @return a schema rule that can handle the "required" declaration.
      */
-    public Rule<JDefinedClass, JDefinedClass> getRequiredArrayRule() { return new RequiredArrayRule(this); }
+    public Rule<JDefinedClass, JDefinedClass> getRequiredArrayRule() {
+        return new RequiredArrayRule(this);
+    }
 
     /**
      * Provides a rule instance that should be applied when a "properties"
@@ -372,6 +379,15 @@ public class RuleFactory {
      */
     public Rule<JDefinedClass, JDefinedClass> getDynamicPropertiesRule() {
         return new DynamicPropertiesRule(this);
+    }
+
+    /**
+     * Provides the instance of <String,POJOEntity> hashMap
+     * 
+     * @return the nodeMap
+     */
+    public HashMap<String, JClassEntity> getNodeMap() {
+        return nodeMap;
     }
 
     public Rule<JDocCommentable, JDocComment> getJavaNameRule() {

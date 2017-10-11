@@ -49,6 +49,15 @@ public interface GenerationConfig {
      *         when generating bean properties (has the side-effect of making
      *         those properties non-null).
      */
+
+    /**
+     * Avoids generation of new classes for same schema node
+     *
+     * @return a boolean that determines Determines if multiple classes should be
+     *         avoided for same schema node
+     */
+    boolean isMergeClassesForIdenticalSchema();
+
     boolean isUsePrimitives();
 
     /**
@@ -137,15 +146,15 @@ public interface GenerationConfig {
      *         generated Java types.
      */
     boolean isIncludeToString();
-    
+
     /**
      * Gets the 'toStringExcludes' configuration option.
      *
-     * @return An array of strings representing fields 
+     * @return An array of strings representing fields
      *         that should be excluded from toString methods
      */
     String[] getToStringExcludes();
- 
+
     /**
      * Gets the 'annotationStyle' configuration option.
      *
@@ -541,13 +550,15 @@ public interface GenerationConfig {
      * Gets the 'sourceSortOrder' configuration option.
      *
      * @return
-     *  <p>
+     *         <p>
      *         Supported values:
      *         <ul>
      *         <li><code>OS</code> (Let the OS influence the order the source files are processed.)</li>
-     *         <li><code>FILES_FIRST</code> (Case sensitive sort, visit the files first.  The source files are processed in a breadth
+     *         <li><code>FILES_FIRST</code> (Case sensitive sort, visit the files first. The source files are processed
+     *         in a breadth
      *         first sort order.)</li>
-     *         <li><code>SUBDIRS_FIRST</code> (Case sensitive sort, visit the sub-directories before the files.  The source files are
+     *         <li><code>SUBDIRS_FIRST</code> (Case sensitive sort, visit the sub-directories before the files. The
+     *         source files are
      *         processed in a depth first sort order.)</li>
      *         </ul>
      */
@@ -565,5 +576,5 @@ public interface GenerationConfig {
      *         </ul>
      */
     Language getTargetLanguage();
-    
+
 }
