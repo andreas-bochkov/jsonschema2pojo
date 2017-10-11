@@ -107,7 +107,9 @@ public class ObjectRule implements Rule<JPackage, JType> {
         try {
             hashKey = DatatypeConverter
                     .printHexBinary(MessageDigest.getInstance(SECURITY_ALGORITHM).digest(message.getBytes("UTF-8")));
-        } catch (UnsupportedEncodingException | NoSuchAlgorithmException e) {
+        } catch (UnsupportedEncodingException e) {
+        } catch (NoSuchAlgorithmException e) {
+
         }
         if (ruleFactory.getGenerationConfig().isMergeClassesForIdenticalSchema()) {
             if (nodeMap.containsKey(hashKey)) {
