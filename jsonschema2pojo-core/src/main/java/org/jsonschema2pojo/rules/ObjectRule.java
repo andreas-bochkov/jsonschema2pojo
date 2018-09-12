@@ -102,21 +102,10 @@ public class ObjectRule implements Rule<JPackage, JType> {
         if (superType.isPrimitive() || isFinal(superType)) {
             return superType;
         }
-        String message = nodeName.toString() + node.toString() + _package.toString();
-        String hashKey = null;
-        try {
-            hashKey = DatatypeConverter
-                    .printHexBinary(MessageDigest.getInstance(SECURITY_ALGORITHM).digest(message.getBytes("UTF-8")));
-        } catch (UnsupportedEncodingException e) {
-        } catch (NoSuchAlgorithmException e) {
 
-        }
         if (ruleFactory.getGenerationConfig().isMergeClassesForIdenticalSchema()) {
-            if (nodeMap.containsKey(hashKey)) {
-                JClassEntity entity = nodeMap.get(hashKey);
-                if (entity.getJsonNode().equals(node) && entity.getJPackage().equals(_package)) {
-                    return entity.getJClass();
-                }
+            if (nodeMap.containsKey(nodeName)) {
+                return nodeMap.get(nodeName).getJClass();
             }
         }
         JDefinedClass jclass;
@@ -124,6 +113,10 @@ public class ObjectRule implements Rule<JPackage, JType> {
             jclass = createClass(nodeName, node, _package);
         } catch (ClassAlreadyExistsException e) {
             return e.getExistingClass();
+        }
+
+        if (ruleFactory.getGenerationConfig().isMergeClassesForIdenticalSchema()) {
+            nodeMap.put(nodeName, new JClassEntity(jclass, node, _package));
         }
 
         jclass._extends((JClass) superType);
@@ -176,10 +169,6 @@ public class ObjectRule implements Rule<JPackage, JType> {
 
         if (ruleFactory.getGenerationConfig().isSerializable()) {
             SerializableHelper.addSerializableSupport(jclass);
-        }
-
-        if (ruleFactory.getGenerationConfig().isMergeClassesForIdenticalSchema()) {
-            nodeMap.put(hashKey, new JClassEntity(jclass, node, _package));
         }
 
         return jclass;
