@@ -5,18 +5,18 @@
     <parent>
         <artifactId>jsonschema2pojo</artifactId>
         <groupId>org.jsonschema2pojo</groupId>
-        <version>0.5.2-SNAPSHOT</version>
+        <version>0.5.3-beta1-SNAPSHOT</version>
     </parent>
 
     <artifactId>jsonschema2pojo-core</artifactId>
-    <version>0.5.3-SNAPSHOT</version>
+
     <name>jsonschema2pojo-core</name>
 
     <dependencies>
         <dependency>
             <groupId>org.jsonschema2pojo</groupId>
             <artifactId>jsonschema2pojo-scalagen</artifactId>
-            <version>0.5.2-SNAPSHOT</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
